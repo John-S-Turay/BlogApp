@@ -1,0 +1,76 @@
+<div class="editor_class">
+  <form [formGroup]="editorForm">
+    <input
+      type="text"
+      placeholder="Title"
+      formControlName="title"
+      [ngClass]="{
+        'error-class':
+          editorForm.controls.title.touched &&
+          editorForm.controls.title?.errors?.required
+      }"
+    />
+    <textarea
+      matInput
+      formControlName="description"
+      id="description"
+      cols="30"
+      rows="3"
+      [ngClass]="{
+        'error-class':
+          editorForm.controls.description.touched &&
+          editorForm.controls.description?.errors?.required
+      }"
+      placeholder="Write Short description in less then 50 words.."
+    ></textarea>
+    <div class="thumbnailImage mt-2">
+      <div class="preview-image">
+        <img
+          [src]="imageSrc || '/assets/images/avatar.svg'"
+          id="image"
+          #normal
+        />
+      </div>
+      <input
+        type="file"
+        name=""
+        accept="image/*"
+        id=""
+        (change)="uploadFile($event)"
+        #file
+        #normal
+      />
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="file.click()"
+        (click)="normal.click()"
+        class="uploadFile"
+      >
+        <mat-icon inline="true" class="color-white">file_upload</mat-icon>
+        Choose Thumbnail Image
+      </button>
+    </div>
+    <div class="ck-editor-div mb-4">
+      <ck-editor
+        formControlName="content"
+        [(ngModel)]="editorValue"
+        skin="moono-lisa"
+        language="en"
+        [fullPage]="false"
+      ></ck-editor>
+    </div>
+  </form>
+  <div class="editor-buttons">
+    <button mat-raised-button color="primary" (click)="saveAsDraft()">
+      Save As Draft
+    </button>
+    <button mat-raised-button color="warn" (click)="resetBlog()">Reset</button>
+    <button mat-raised-button color="accent" (click)="publishBlog()">
+      Publish
+    </button>
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      Preview
+    </button>
+  </div>
+</div>

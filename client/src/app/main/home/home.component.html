@@ -1,0 +1,70 @@
+<nav class="nav landing-page-color">
+  <div class="logo">
+    <a routerLink="/" matRipple> <span>Blog</span></a>
+  </div>
+  <ul class="nav-links">
+    <li class="links">
+      <a routerLink="/read" matRipple>Read</a>
+    </li>
+    <li class="links"><a routerLink="/write">Write</a></li>
+    <li class="links" *ngIf="!loggedIn">
+      <a routerLink="/auth/login">Sign In</a>
+    </li>
+    <li class="links try-for-free" *ngIf="!loggedIn">
+      <a routerLink="/auth/signup" matRippe>Sign Up</a>
+    </li>
+    <li class="links profile-drop-links" *ngIf="loggedIn">
+      <button
+        mat-raised-button
+        color="primary"
+        class="mb-2"
+        [routerLink]="['/profile/me']"
+      >
+        <!-- (click)="profileDrop()" -->
+        <mat-icon class="mr-2">person_pin </mat-icon>Profile
+      </button>
+    </li>
+    <li class="links profile-drop-links" *ngIf="loggedIn">
+      <button mat-raised-button color="primary" (click)="logout()">
+        <mat-icon class="mr-2">power_settings_new</mat-icon>Logout
+      </button>
+    </li>
+    <li class="links profile-drop" *ngIf="loggedIn">
+      <div class="profile-image" (click)="profileDrop()">
+        <img
+          [src]="profileImage || '/assets/images/avatar.svg'"
+          alt=""
+          id="profile-image"
+          id="profile_img"
+        />
+        <mat-icon> arrow_drop_down </mat-icon>
+      </div>
+      <div
+        class="profile-dropdown"
+        [ngStyle]="{ display: drop ? 'flex' : 'none' }"
+      >
+        <a
+          mat-button
+          mat-raised-button
+          color="primary"
+          class="mb-2 text-light m-0 p-0"
+          routerLink="/profile/me"
+        >
+          <!-- (click)="profileDrop()" -->
+          <mat-icon class="mr-2">person_pin </mat-icon>Profile
+        </a>
+        <button mat-raised-button color="primary" (click)="logout()">
+          <mat-icon class="mr-2">power_settings_new</mat-icon>Logout
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="hamburger">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
+</nav>
+
+<router-outlet *ngIf="routerOutlet"></router-outlet>
